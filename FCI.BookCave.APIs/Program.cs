@@ -2,6 +2,10 @@ using System.Reflection;
 using FCI.BookCave.Controllers;
 using FCI.BookCave.Persistence;
 using FCI.BookCave.Persistence.Identity;
+using FCI.BookCave.Application;
+using Microsoft.Extensions.DependencyInjection;
+using FCI.BookCave.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace FCI.BookCave.APIs
 {
@@ -18,6 +22,17 @@ namespace FCI.BookCave.APIs
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
 			builder.Services.AddPersistenceServices(builder.Configuration);
+			builder.Services.AddApplicationServices(builder.Configuration);
+			builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options =>
+			{
+				options.User.RequireUniqueEmail = true;
+				options.Password.RequiredLength = 8;
+				options.Password.RequireUppercase = true;
+				options.Password.RequireLowercase = true;
+				options.SignIn.RequireConfirmedEmail = true;
+
+
+			}).AddEntityFrameworkStores<IdentityDbContext>();
 
 			var app = builder.Build();
 

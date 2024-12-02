@@ -18,17 +18,6 @@ namespace FCI.BookCave.Persistence
 			// Register Identity Db Services
 			#region IdentityDbContext
 
-			services.AddIdentityCore<ApplicationUser>(options =>
-			{
-				options.User.RequireUniqueEmail = true;
-				options.Password.RequiredLength = 8;
-				options.Password.RequireUppercase = true;
-				options.Password.RequireLowercase = true;
-				options.SignIn.RequireConfirmedEmail = true;
-
-
-			}).AddEntityFrameworkStores<IdentityDbContext>();
-
 			services.AddDbContext<IdentityDbContext>(c => c.UseSqlServer(configurations.GetConnectionString("IdentityConnection")));
 
 			services.AddScoped<IdentityDbContextInitializer>();
