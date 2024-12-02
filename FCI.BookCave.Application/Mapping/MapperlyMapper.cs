@@ -13,7 +13,7 @@ namespace FCI.BookCave.Application.Mapping
 	[Mapper]
 	public partial class MapperlyMapper
 	{		
-		public static partial AuthDto ToDto(ApplicationUser entity, string token, DateTime ExpiresOn);
+		public static partial AuthDto ToDto(ApplicationUser entity, string token, DateTime ExpiresOn, RefreshTokenDto refreshToken);
 		public static partial ApplicationUser ToEntity(RegisterDto entity);
 	}
 }

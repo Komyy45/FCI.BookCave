@@ -1,20 +1,27 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.ComponentModel.Design;
+using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading.RateLimiting;
 using FCI.BookCave.Abstractions.Contracts;
 using FCI.BookCave.Abstractions.Models.Common;
 using FCI.BookCave.Abstractions.Models.Identity;
 using FCI.BookCave.Application.Mapping;
+using FCI.BookCave.Domain.Contracts.UnitOfWork;
 using FCI.BookCave.Domain.Entities.Identity;
 using FCI.BookCave.Domain.Exception;
 using FCI.BookCave.Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FCI.BookCave.Application.Services.Identity
 {
-	internal class AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings) : IAuthService
+	internal class AuthService(IIdentityUnitOfWork identityUnitOfWork, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings) : IAuthService
 	{
 		private JwtSettings _jwtSettings = jwtSettings.Value;
 
@@ -30,7 +37,23 @@ namespace FCI.BookCave.Application.Services.Identity
 
 			if (result.IsNotAllowed) throw new BadRequestException("This Account has not been Confirmed yet");
 
-			return MapperlyMapper.ToDto(user, await GenerateJwtToken(user), DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes));
+			var activeTokens = user!.Tokens.Where(t => t.IsActive);
+
+			if(activeTokens.Any())
+			{
+				var repo = identityUnitOfWork.GetRepository<RefreshToken, int>();
+				foreach(var token in activeTokens)
+				{
+					token.RevokedOn = DateTime.UtcNow;
+					repo.Update(token);
+				}
+			}
+
+			var refreshToken = await GenerateRefereshToken(user);
+
+			await identityUnitOfWork.CompleteAsync();
+
+			return MapperlyMapper.ToDto(user, await GenerateJwtToken(user), DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes), new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
 		}
 
 		public async Task<AuthDto> Register(RegisterDto model)
@@ -45,7 +68,75 @@ namespace FCI.BookCave.Application.Services.Identity
 
 			if (result.Errors.Any()) throw new BadRequestException(string.Join(',', result.Errors.Select(e => e.Description)));
 
-			return MapperlyMapper.ToDto(applicationUser, await GenerateJwtToken(applicationUser), DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes));
+
+			var refreshToken = await GenerateRefereshToken(applicationUser);
+
+			return MapperlyMapper.ToDto(applicationUser, await GenerateJwtToken(applicationUser), 
+				DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes), 
+				new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
+		}
+
+		public async Task<bool> RevokeToken(string userEmail, string token)
+		{
+			if (token is null) throw new BadRequestException("There is no Token sent");
+
+			var user = await userManager.FindByEmailAsync(userEmail);
+
+			var refreshToken = user!.Tokens.FirstOrDefault(t => t.Token == token);
+
+			if (refreshToken is not null && refreshToken.IsActive)
+			{
+				refreshToken.RevokedOn = DateTime.UtcNow;
+				return true;
+			}
+
+			return false;
+		}
+
+		public async Task<AuthDto> RefreshTokenAsync(string token)
+		{
+			if (token is null) throw new BadRequestException("There is no Token sent");
+
+			var user = await userManager.Users.SingleOrDefaultAsync(u => u.Tokens.Any(u => u.Token == token));
+
+			var refreshToken = user!.Tokens.FirstOrDefault(u => u.Token == token);
+
+			if (refreshToken is null) throw new NotFoundException("There is no Such a token exists");
+
+			if (refreshToken.IsExpired) throw new BadRequestException("The Token has been exipred");
+
+			if (!refreshToken.IsActive) throw new BadRequestException("This token is not active right now");
+
+			refreshToken.RevokedOn = DateTime.UtcNow;
+
+			var generatedRefreshToken = await GenerateRefereshToken(user);
+
+		    await identityUnitOfWork.CompleteAsync();
+
+			return new AuthDto()
+			{
+				Email = user.Email!,
+				UserName = user.UserName!,
+				ExpiresOn = generatedRefreshToken.ExpiresOn,
+				PhoneNumber = user.PhoneNumber!,
+				DisplayName = user.DisplayName,
+				Token = await GenerateJwtToken(user),
+				RefreshToken = new RefreshTokenDto(generatedRefreshToken.Token, generatedRefreshToken.ExpiresOn)
+			};
+		}
+
+		private async Task<RefreshToken> GenerateRefereshToken(ApplicationUser user)
+		{
+			RefreshToken token = new RefreshToken()
+			{
+				Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(256)),
+				ExpiresOn = DateTime.UtcNow.AddDays(10),
+				UserId = user.Id
+			};
+
+			await identityUnitOfWork.GetRepository<RefreshToken, int>().Add(token);
+
+			return token;
 		}
 
 		private async Task<string> GenerateJwtToken(ApplicationUser applicationUser)

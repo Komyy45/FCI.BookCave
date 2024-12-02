@@ -6,6 +6,7 @@ using FCI.BookCave.Application;
 using Microsoft.Extensions.DependencyInjection;
 using FCI.BookCave.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace FCI.BookCave.APIs
 {
@@ -21,6 +22,10 @@ namespace FCI.BookCave.APIs
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("Default", config => config.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
+			});
 			builder.Services.AddPersistenceServices(builder.Configuration);
 			builder.Services.AddApplicationServices(builder.Configuration);
 			builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options =>
@@ -69,6 +74,7 @@ namespace FCI.BookCave.APIs
 
 			app.UseAuthorization();
 
+			app.UseCors("Default");
 
 			app.MapControllers();
 

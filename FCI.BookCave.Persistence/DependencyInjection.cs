@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FCI.BookCave.Domain.Entities.Identity;
+﻿using FCI.BookCave.Domain.Contracts.UnitOfWork;
 using FCI.BookCave.Persistence.Identity;
+using FCI.BookCave.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +14,11 @@ namespace FCI.BookCave.Persistence
 			// Register Identity Db Services
 			#region IdentityDbContext
 
-			services.AddDbContext<IdentityDbContext>(c => c.UseSqlServer(configurations.GetConnectionString("IdentityConnection")));
+			services.AddDbContext<IdentityDbContext>(c => 
+			c.UseSqlServer(configurations.GetConnectionString("IdentityConnection"))
+			.UseLazyLoadingProxies());
+
+			services.AddScoped<IIdentityUnitOfWork, IdentityUnitOfWork>();
 
 			services.AddScoped<IdentityDbContextInitializer>();
 

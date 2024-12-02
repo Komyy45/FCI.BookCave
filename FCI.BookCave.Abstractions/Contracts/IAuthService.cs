@@ -11,6 +11,10 @@ namespace FCI.BookCave.Abstractions.Contracts
 	{
 		Task<AuthDto> Login(LoginDto model);
 
-		Task<AuthDto> Register(RegisterDto model); 
+		Task<AuthDto> Register(RegisterDto model);
+
+		Task<AuthDto> RefreshTokenAsync(string token);
+
+		Task<bool> RevokeToken(string userEmail, string token);
 	}
 }

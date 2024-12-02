@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FCI.BookCave.Abstractions.Models.Identity
@@ -14,5 +16,8 @@ namespace FCI.BookCave.Abstractions.Models.Identity
 		public string PhoneNumber { get; init; }
 		public string Token { get; init; }
 		public DateTime ExpiresOn { get; init; }
+
+		[JsonIgnore]
+		public RefreshTokenDto RefreshToken { get; init; }
 	}
 }
