@@ -37,23 +37,25 @@ namespace FCI.BookCave.Application.Services.Identity
 
 			if (result.IsNotAllowed) throw new BadRequestException("This Account has not been Confirmed yet");
 
-			var activeTokens = user!.Tokens.Where(t => t.IsActive);
+			if(!result.Succeeded) throw new BadRequestException("Invalid login");
+			
+				var activeTokens = user!.Tokens.Where(t => t.IsActive);
 
-			if(activeTokens.Any())
-			{
-				var repo = identityUnitOfWork.GetRepository<RefreshToken, int>();
-				foreach(var token in activeTokens)
+				if (activeTokens.Any())
 				{
-					token.RevokedOn = DateTime.UtcNow;
-					repo.Update(token);
+					var repo = identityUnitOfWork.GetRepository<RefreshToken, int>();
+					foreach (var token in activeTokens)
+					{
+						token.RevokedOn = DateTime.UtcNow;
+						repo.Update(token);
+					}
 				}
-			}
 
-			var refreshToken = await GenerateRefereshToken(user);
+				var refreshToken = await GenerateRefereshToken(user);
 
-			await identityUnitOfWork.CompleteAsync();
+				await identityUnitOfWork.CompleteAsync();
 
-			return MapperlyMapper.ToDto(user, await GenerateJwtToken(user), DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes), new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
+				return MapperlyMapper.ToDto(user, await GenerateJwtToken(user), DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes), new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
 		}
 
 		public async Task<AuthDto> Register(RegisterDto model)
