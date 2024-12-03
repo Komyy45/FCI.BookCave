@@ -37,9 +37,9 @@ namespace FCI.BookCave.Controllers.Controllers
 			Response.Cookies.Append("refresh-token", refreshToken.Token);
 		}
 
-		[Authorize(AuthenticationSchemes = "Bearer")]
+
 		[HttpPost("Refresh-Token")]
-		public async Task<ActionResult<AuthDto>> RefereshToken()
+		public async Task<ActionResult<AuthDto>> RefereshToken(string token)
 		{
 			var result = await authService.RefreshTokenAsync(Request.Cookies["refresh-token"]);
 
@@ -48,11 +48,10 @@ namespace FCI.BookCave.Controllers.Controllers
 			return Ok(result);
 		}
 
-		[Authorize(AuthenticationSchemes = "Bearer")]
 		[HttpPost("revoke-token")] 
-		public async Task<ActionResult<bool>> RevokeToken()
+		public async Task<ActionResult<bool>> RevokeToken(string token)
 		{
-			var result = await authService.RevokeToken(User.FindFirst(ClaimTypes.Email)!.Value, Request.Cookies["Refresh-token"]);
+			var result = await authService.RevokeToken(token);
 			return Ok(result);
 		}
 	}

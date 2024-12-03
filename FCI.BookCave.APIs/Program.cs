@@ -1,12 +1,8 @@
-using System.Reflection;
-using FCI.BookCave.Controllers;
+using FCI.BookCave.Application;
+using FCI.BookCave.Domain.Entities.Identity;
 using FCI.BookCave.Persistence;
 using FCI.BookCave.Persistence.Identity;
-using FCI.BookCave.Application;
-using Microsoft.Extensions.DependencyInjection;
-using FCI.BookCave.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace FCI.BookCave.APIs
 {
@@ -24,7 +20,7 @@ namespace FCI.BookCave.APIs
 			builder.Services.AddSwaggerGen();
 			builder.Services.AddCors(options =>
 			{
-				options.AddPolicy("Default", config => config.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
+				options.AddPolicy("Default", config => config.AllowAnyMethod().WithOrigins("http://localhost:3000").AllowAnyHeader().AllowCredentials());
 			});
 			builder.Services.AddPersistenceServices(builder.Configuration);
 			builder.Services.AddApplicationServices(builder.Configuration);
@@ -72,9 +68,9 @@ namespace FCI.BookCave.APIs
 
 			app.UseHttpsRedirection();
 
+			app.UseCors("Default");
 			app.UseAuthorization();
 
-			app.UseCors("Default");
 
 			app.MapControllers();
 

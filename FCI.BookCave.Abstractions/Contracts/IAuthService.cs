@@ -15,6 +15,6 @@ namespace FCI.BookCave.Abstractions.Contracts
 
 		Task<AuthDto> RefreshTokenAsync(string token);
 
-		Task<bool> RevokeToken(string userEmail, string token);
+		Task<bool> RevokeToken(string token);
 	}
 }

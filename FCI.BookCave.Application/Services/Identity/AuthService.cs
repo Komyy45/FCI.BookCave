@@ -63,6 +63,7 @@ namespace FCI.BookCave.Application.Services.Identity
 			if(user is not null) throw new BadRequestException($"This Email has been registered before");
 
 			var applicationUser = MapperlyMapper.ToEntity(model);
+			applicationUser.EmailConfirmed = true;
 
 			var result = await userManager.CreateAsync(applicationUser, model.password);
 
@@ -76,20 +77,24 @@ namespace FCI.BookCave.Application.Services.Identity
 				new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
 		}
 
-		public async Task<bool> RevokeToken(string userEmail, string token)
+		public async Task<bool> RevokeToken(string token)
 		{
 			if (token is null) throw new BadRequestException("There is no Token sent");
 
-			var user = await userManager.FindByEmailAsync(userEmail);
+			var tokenRepo = identityUnitOfWork.GetRepository<RefreshToken, int>();
 
-			var refreshToken = user!.Tokens.FirstOrDefault(t => t.Token == token);
+			var tokens = await tokenRepo.GetAll();
 
-			if (refreshToken is not null && refreshToken.IsActive)
-			{
-				refreshToken.RevokedOn = DateTime.UtcNow;
-				return true;
-			}
+			var activeToken = tokens.SingleOrDefault(t => t.Token == token);
 
+			if (activeToken is null) throw new NotFoundException("This token doesn't exist");
+
+			activeToken.RevokedOn = DateTime.UtcNow;
+
+			tokenRepo.Update(activeToken);
+
+		    await identityUnitOfWork.CompleteAsync();
+			
 			return false;
 		}
 
