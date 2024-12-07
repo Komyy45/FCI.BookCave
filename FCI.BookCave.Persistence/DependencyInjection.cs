@@ -1,4 +1,5 @@
 ﻿using FCI.BookCave.Domain.Contracts.UnitOfWork;
+using FCI.BookCave.Persistence.Data;
 using FCI.BookCave.Persistence.Identity;
 using FCI.BookCave.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,18 @@ namespace FCI.BookCave.Persistence
 			services.AddScoped<IIdentityUnitOfWork, IdentityUnitOfWork>();
 
 			services.AddScoped<IdentityDbContextInitializer>();
+
+			#endregion
+
+			#region StoreDbContext
+
+			services.AddDbContext<StoreDbContext>(options =>
+				options.UseSqlServer(configurations.GetConnectionString("DefaultConnection")).UseLazyLoadingProxies()
+			);
+
+			services.AddScoped<IApplicationUnitOfWork, ApplicationUnitOfWork>();
+
+			services.AddScoped<StoreDbContextInitialzer>();
 
 			#endregion
 

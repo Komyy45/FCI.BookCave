@@ -1,6 +1,7 @@
 using FCI.BookCave.Application;
 using FCI.BookCave.Domain.Entities.Identity;
 using FCI.BookCave.Persistence;
+using FCI.BookCave.Persistence.Data;
 using FCI.BookCave.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -42,9 +43,11 @@ namespace FCI.BookCave.APIs
 			var scope = app.Services.CreateScope();
 
 			var identityDbInitializer = scope.ServiceProvider.GetRequiredService<IdentityDbContextInitializer>();
+			var StoreDbInitializer = scope.ServiceProvider.GetRequiredService<StoreDbContextInitialzer>();
 
 			try
 			{
+				await StoreDbInitializer.InitializeAsync();
 				await identityDbInitializer.InitializeAsync();
 				await identityDbInitializer.SeedAsync();
 			}
