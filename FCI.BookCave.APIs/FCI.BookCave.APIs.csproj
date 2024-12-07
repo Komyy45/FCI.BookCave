@@ -7,11 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FCI.BookCave.Application\FCI.BookCave.Application.csproj" />
     <ProjectReference Include="..\FCI.BookCave.Controllers\FCI.BookCave.Controllers.csproj" />
+    <ProjectReference Include="..\FCI.BookCave.Domain\FCI.BookCave.Domain.csproj" />
+    <ProjectReference Include="..\FCI.BookCave.Persistence\FCI.BookCave.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

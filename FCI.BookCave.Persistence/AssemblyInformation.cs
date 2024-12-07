@@ -5,10 +5,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FCI.BookCave.Controllers
+namespace FCI.BookCave.Persistence
 {
 	public static class AssemblyInformation
 	{
-		public static Assembly Assembly => typeof(AssemblyInformation).Assembly;
-	}
+        public static Assembly Assembly =>  typeof(AssemblyInformation).Assembly;
+    }
 }
