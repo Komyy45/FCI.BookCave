@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using FCI.BookCave.Abstractions.Contracts;
+using FCI.BookCave.Abstractions.Contracts.Products;
 using FCI.BookCave.Abstractions.Models.Common;
 using FCI.BookCave.Application.Services.Identity;
+using FCI.BookCave.Application.Services.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,6 +48,8 @@ namespace FCI.BookCave.Application
 			services.AddScoped<IAuthService, AuthService>();
 			services.Configure<JwtSettings>(configurations.GetSection("JwtSettings"));
 
+
+			services.AddScoped<IProductService, ProductService>();
 
 			return services;
 		}
