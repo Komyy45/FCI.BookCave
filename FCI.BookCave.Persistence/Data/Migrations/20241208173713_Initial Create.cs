@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FCI.BookCave.Persistence.data.Migrations
+namespace FCI.BookCave.Persistence.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,8 +24,8 @@ namespace FCI.BookCave.Persistence.data.Migrations
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GetUtcDate()"),
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false, computedColumnSql: "GetUtcDate()")
                 },
                 constraints: table =>
                 {
@@ -55,15 +55,15 @@ namespace FCI.BookCave.Persistence.data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rate = table.Column<float>(type: "real", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "varchar(300)", nullable: false),
                     UnitsInStock = table.Column<int>(type: "int", nullable: false),
                     PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GetUtcDate()"),
+                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false, computedColumnSql: "GetUtcDate()")
                 },
                 constraints: table =>
                 {

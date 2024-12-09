@@ -8,7 +8,7 @@ namespace FCI.BookCave.Abstractions.Models.products
 {
 	public class ProductSpecs
 	{
-		public string CategoryName { get; set; } = string.Empty;
+		public int CategoryId { get; set; }
 
 		public decimal MinPrice { get; set; } = 0.0M;
 

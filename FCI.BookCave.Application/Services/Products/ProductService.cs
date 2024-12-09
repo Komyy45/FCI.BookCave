@@ -4,46 +4,48 @@ using FCI.BookCave.Application.Mapping;
 using FCI.BookCave.Domain.Contracts.UnitOfWork;
 using FCI.BookCave.Domain.Entities.Products;
 using FCI.BookCave.Domain.Exception;
+using FCI.BookCave.Domain.Specifications;
 using FCI.BookCave.Domain.Specifications.Products;
 
 namespace FCI.BookCave.Application.Services.Products
 {
-	public class ProductService(IApplicationUnitOfWork unitOfWork) : IProductService
+	public class ProductService(IApplicationUnitOfWork unitOfWork, MapperlyMapper _mapper) : IProductService
 	{
 		public async Task<Pagination<AuthorDto>> GetAllAuthorsAsync(int pageSize, int pageIndex)
 		{
 			var authorsRepository = unitOfWork.GetRepository<Author, int>();
 			var authorSpecifications = new AuthorSpecifications(pageSize, pageIndex);
-			var authors = await authorsRepository.GetAll();
+			var authors = await authorsRepository.GetAll(authorSpecifications);
 			var pagination = new Pagination<AuthorDto>()
 			{
 				PageIndex = pageIndex,
 				PageSize = pageSize,
 				Count = await authorsRepository.CountAsync(),
-				Items = MapperlyMapper.ToDto(authors)
+				Items = _mapper.MapEnumerable(authors)
 			};
 
 			return pagination;
 		}
 
 		public async Task<IEnumerable<CategoryDto>> GetAllCategories()
-			=> MapperlyMapper.ToDto(await unitOfWork.GetRepository<Category, int>().GetAll());
+			=> _mapper.ToDto(await unitOfWork.GetRepository<Category, int>().GetAll());
 
 		public async Task<Pagination<BookDto>> GetAllProductsAsync(ProductSpecs spec)
 		{
 			var booksRepository = unitOfWork.GetRepository<Book, int>();
-			var authorSpecifications = new BookSpecifications(spec.PageIndex, spec.PageSize, b =>
+
+			var bookSpecifications = new BookSpecifications(spec.PageIndex, spec.PageSize, b =>
 			(b.Price <= spec.MaxPrice && b.Price >= spec.MinPrice) &&
 			(b.Rate <= spec.MaxRate && b.Rate >= spec.MinRate) &&
-			(spec.CategoryName == string.Empty || b.Categories.Any(c => c.Name == spec.CategoryName))
+			(spec.CategoryId == 0 || b.Categories.Any(c => c.Id == spec.CategoryId))
 			);
-			var books = await booksRepository.GetAll();
+			var books = await booksRepository.GetAll(bookSpecifications);
 			var pagination = new Pagination<BookDto>()
 			{
 				PageIndex = spec.PageIndex,
 				PageSize = spec.PageSize,
 				Count = await booksRepository.CountAsync(),
-				Items = MapperlyMapper.ToDto(books)
+				Items = _mapper.MapEnumerable(books)
 			};
 
 			return pagination;
@@ -56,12 +58,14 @@ namespace FCI.BookCave.Application.Services.Products
 
 			if (author is null) throw new NotFoundException($"The Auhtor with Id: {id} doesn't exist");
 
-			var specs = new ProductSpecs()
+			var pagination = new Pagination<BookDto>()
 			{
 				PageIndex = 1,
 				PageSize = 5,
+				Count = author.Books.Count,
+				Items = _mapper.MapEnumerable(author.Books.Take(5))
 			};
-			return MapperlyMapper.ToDto(author, await GetAllProductsAsync(specs));
+			return _mapper.MapSingleDetails(author, pagination);
 		}
 
 		public async Task<BookDetailsDto> GetBookByIdAsync(int id)
@@ -70,8 +74,9 @@ namespace FCI.BookCave.Application.Services.Products
 			var book = await unitOfWork.GetRepository<Book, int>().Get(bookSpecifications, id);
 
 			if (book is null) throw new NotFoundException($"The Book with Id: {id} doesn't exist");
-
-			return MapperlyMapper.ToDto(book, book.Author.Name);
+			
+			var mappedBook = _mapper.MapSingleDetails(book);
+			return mappedBook!;
 		}
 	}
 }

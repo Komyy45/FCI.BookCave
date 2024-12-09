@@ -43,12 +43,13 @@ namespace FCI.BookCave.APIs
 			var scope = app.Services.CreateScope();
 
 			var identityDbInitializer = scope.ServiceProvider.GetRequiredService<IdentityDbContextInitializer>();
-			var StoreDbInitializer = scope.ServiceProvider.GetRequiredService<StoreDbContextInitialzer>();
+			var storeDbInitializer = scope.ServiceProvider.GetRequiredService<StoreDbContextInitialzer>();
 
 			try
 			{
-				await StoreDbInitializer.InitializeAsync();
+				await storeDbInitializer.InitializeAsync();
 				await identityDbInitializer.InitializeAsync();
+				await storeDbInitializer.SeedAsync();
 				await identityDbInitializer.SeedAsync();
 			}
 			catch (Exception ex)
@@ -74,6 +75,9 @@ namespace FCI.BookCave.APIs
 			app.UseCors("Default");
 			app.UseAuthorization();
 
+			app.UseStaticFiles();
+
+			app.UseAuthentication();
 
 			app.MapControllers();
 

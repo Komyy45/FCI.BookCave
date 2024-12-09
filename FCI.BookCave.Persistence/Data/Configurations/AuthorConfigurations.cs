@@ -1,9 +1,11 @@
 ﻿using FCI.BookCave.Domain.Entities.Products;
 using FCI.BookCave.Persistence.Common.Configurations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FCI.BookCave.Persistence.Data.Configurations
 {
+	[DbContext(contextType:typeof(StoreDbContext))]
 	internal class AuthorConfigurations : BaseAuditableEntityConfigurations<Author, int>
 	{
 		public override void Configure(EntityTypeBuilder<Author> builder)

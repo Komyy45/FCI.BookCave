@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FCI.BookCave.Persistence.data.Migrations
+namespace FCI.BookCave.Persistence.Data.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20241207223218_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20241208180438_Products-Module")]
+    partial class ProductsModule
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,21 +27,6 @@ namespace FCI.BookCave.Persistence.data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("BookCategory", b =>
-                {
-                    b.Property<int>("BooksId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BooksId", "CategoriesId");
-
-                    b.HasIndex("CategoriesId");
-
-                    b.ToTable("BookCategory");
-                });
 
             modelBuilder.Entity("FCI.BookCave.Domain.Entities.Products.Author", b =>
                 {
@@ -63,7 +48,9 @@ namespace FCI.BookCave.Persistence.data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetUtcDate()");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -73,7 +60,9 @@ namespace FCI.BookCave.Persistence.data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModifiedOn")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasComputedColumnSql("GetUtcDate()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -104,11 +93,13 @@ namespace FCI.BookCave.Persistence.data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetUtcDate()");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(300)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -118,7 +109,9 @@ namespace FCI.BookCave.Persistence.data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModifiedOn")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasComputedColumnSql("GetUtcDate()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -144,6 +137,21 @@ namespace FCI.BookCave.Persistence.data.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("FCI.BookCave.Domain.Entities.Products.BookCategories", b =>
+                {
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("BookCategories");
+                });
+
             modelBuilder.Entity("FCI.BookCave.Domain.Entities.Products.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -164,21 +172,6 @@ namespace FCI.BookCave.Persistence.data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("BookCategory", b =>
-                {
-                    b.HasOne("FCI.BookCave.Domain.Entities.Products.Book", null)
-                        .WithMany()
-                        .HasForeignKey("BooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FCI.BookCave.Domain.Entities.Products.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FCI.BookCave.Domain.Entities.Products.Book", b =>
                 {
                     b.HasOne("FCI.BookCave.Domain.Entities.Products.Author", "Author")
@@ -190,7 +183,32 @@ namespace FCI.BookCave.Persistence.data.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("FCI.BookCave.Domain.Entities.Products.BookCategories", b =>
+                {
+                    b.HasOne("FCI.BookCave.Domain.Entities.Products.Book", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FCI.BookCave.Domain.Entities.Products.Category", null)
+                        .WithMany("Books")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FCI.BookCave.Domain.Entities.Products.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("FCI.BookCave.Domain.Entities.Products.Book", b =>
+                {
+                    b.Navigation("Categories");
+                });
+
+            modelBuilder.Entity("FCI.BookCave.Domain.Entities.Products.Category", b =>
                 {
                     b.Navigation("Books");
                 });

@@ -16,13 +16,13 @@ namespace FCI.BookCave.Persistence.Repositories
 		where TEntity : BaseEntity<TKey>
 		where TKey : IEquatable<TKey>
 	{
-		public async Task<IEnumerable<TEntity>> GetAll(bool withAsNoTracking = false)
+		public async Task<IEnumerable<TEntity>> GetAll(bool withAsNoTracking = true)
 		{
 			var query = context.Set<TEntity>();
 			return withAsNoTracking ? await query.AsNoTracking().ToListAsync() : await query.ToListAsync();
 		}
 
-		public async Task<IEnumerable<TEntity>> GetAll(ISpecifications<TEntity, TKey> specs, bool withAsNoTracking = false)
+		public async Task<IEnumerable<TEntity>> GetAll(ISpecifications<TEntity, TKey> specs, bool withAsNoTracking = true)
 		{
 			IQueryable<TEntity> query = context.Set<TEntity>();
 

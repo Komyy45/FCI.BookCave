@@ -21,7 +21,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FCI.BookCave.Application.Services.Identity
 {
-	internal class AuthService(IIdentityUnitOfWork identityUnitOfWork, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings) : IAuthService
+	internal class AuthService(IIdentityUnitOfWork identityUnitOfWork, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings, MapperlyMapper _mapper) : IAuthService
 	{
 		private JwtSettings _jwtSettings = jwtSettings.Value;
 
@@ -55,7 +55,7 @@ namespace FCI.BookCave.Application.Services.Identity
 
 				await identityUnitOfWork.CompleteAsync();
 
-				return MapperlyMapper.ToDto(user, await GenerateJwtToken(user), DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes), new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
+				return _mapper.ToDto(user, await GenerateJwtToken(user), DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes), new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
 		}
 
 		public async Task<AuthDto> Register(RegisterDto model)
@@ -64,7 +64,7 @@ namespace FCI.BookCave.Application.Services.Identity
 
 			if(user is not null) throw new BadRequestException($"This Email has been registered before");
 
-			var applicationUser = MapperlyMapper.ToEntity(model);
+			var applicationUser = _mapper.ToEntity(model);
 			applicationUser.EmailConfirmed = true;
 
 			var result = await userManager.CreateAsync(applicationUser, model.password);
@@ -74,7 +74,7 @@ namespace FCI.BookCave.Application.Services.Identity
 
 			var refreshToken = await GenerateRefereshToken(applicationUser);
 
-			return MapperlyMapper.ToDto(applicationUser, await GenerateJwtToken(applicationUser), 
+			return _mapper.ToDto(applicationUser, await GenerateJwtToken(applicationUser), 
 				DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes), 
 				new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
 		}

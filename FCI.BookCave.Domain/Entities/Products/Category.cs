@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FCI.BookCave.Domain.Entities.Common;
+﻿using FCI.BookCave.Domain.Entities.Common;
 
 namespace FCI.BookCave.Domain.Entities.Products
 {
@@ -11,6 +6,6 @@ namespace FCI.BookCave.Domain.Entities.Products
 	{
 		public string Name { get; set; } = null!;
 
-		public virtual ICollection<Book> Books { get; set; } = null!;
+		public virtual ICollection<Book> Books { get; set; } = new HashSet<Book>();
 	}
 }

@@ -1,0 +1,222 @@
+[
+    {
+        "Id": 0,
+        "Name": "Harry Potter and the Philosopher's Stone",
+        "Rate": 4.9,
+        "Price": 19.99,
+        "Description": "The first book in the Harry Potter series.",
+        "UnitsInStock": 100,
+        "PictureUrl": "Harry_Potter_and_the_Philosophers_Stone.jpg",
+        "AuthorId": 1,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "Harry Potter and the Chamber of Secrets",
+        "Rate": 4.8,
+        "Price": 21.99,
+        "Description": "The second book in the Harry Potter series.",
+        "UnitsInStock": 80,
+        "PictureUrl": "Harry_Potter_and_the_Chamber_of__Secrets.jpg",
+        "AuthorId": 1,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "A Game of Thrones",
+        "Rate": 4.7,
+        "Price": 25.99,
+        "Description": "The first book in A Song of Ice and Fire series.",
+        "UnitsInStock": 50,
+        "PictureUrl": "A_Game_of_Thrones.jpg",
+        "AuthorId": 2,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "A Clash of Kings",
+        "Rate": 4.6,
+        "Price": 27.99,
+        "Description": "The second book in A Song of Ice and Fire series.",
+        "UnitsInStock": 40,
+        "PictureUrl": "A_Clash_of_Kings.jpg",
+        "AuthorId": 2,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "Murder on the Orient Express",
+        "Rate": 4.8,
+        "Price": 14.99,
+        "Description": "A famous mystery novel by Agatha Christie.",
+        "UnitsInStock": 60,
+        "PictureUrl": "Murder_on_the_Orient_Express.jpg",
+        "AuthorId": 3,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Hobbit",
+        "Rate": 4.9,
+        "Price": 18.99,
+        "Description": "A fantasy novel by J.R.R. Tolkien.",
+        "UnitsInStock": 70,
+        "PictureUrl": "The_Hobbit.jpg",
+        "AuthorId": 4,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Da Vinci Code",
+        "Rate": 4.5,
+        "Price": 22.99,
+        "Description": "A mystery thriller by Dan Brown.",
+        "UnitsInStock": 90,
+        "PictureUrl": "The_Da_Vinci_Code.jpg",
+        "AuthorId": 5,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "Angels and Demons",
+        "Rate": 4.4,
+        "Price": 20.99,
+        "Description": "A mystery thriller by Dan Brown.",
+        "UnitsInStock": 80,
+        "PictureUrl": "Angels_and_Demons.jpg",
+        "AuthorId": 5,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Fellowship of the Ring",
+        "Rate": 4.8,
+        "Price": 24.99,
+        "Description": "The first book in The Lord of the Rings series.",
+        "UnitsInStock": 100,
+        "PictureUrl": "The_Fellowship_of_the_Ring.jpg",
+        "AuthorId": 4,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Two Towers",
+        "Rate": 4.8,
+        "Price": 24.99,
+        "Description": "The second book in The Lord of the Rings series.",
+        "UnitsInStock": 90,
+        "PictureUrl": "The_Two_Towers.jpg",
+        "AuthorId": 4,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Return of the King",
+        "Rate": 4.9,
+        "Price": 25.99,
+        "Description": "The third book in The Lord of the Rings series.",
+        "UnitsInStock": 80,
+        "PictureUrl": "The_Return_of_the_King.jpg",
+        "AuthorId": 4,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "Fantastic Beasts and Where to Find Them",
+        "Rate": 4.6,
+        "Price": 15.99,
+        "Description": "A companion book to the Harry Potter series.",
+        "UnitsInStock": 120,
+        "PictureUrl": "Fantastic_Beasts_and_Where_to_Find_Them.jpg",
+        "AuthorId": 1,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Silmarillion",
+        "Rate": 4.5,
+        "Price": 19.99,
+        "Description": "A prequel to The Hobbit and The Lord of the Rings.",
+        "UnitsInStock": 60,
+        "PictureUrl": "The_Silmarillion.jpg",
+        "AuthorId": 4,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "Digital Fortress",
+        "Rate": 4.2,
+        "Price": 18.99,
+        "Description": "A technological thriller by Dan Brown.",
+        "UnitsInStock": 70,
+        "PictureUrl": "Digital_Fortress.jpg",
+        "AuthorId": 5,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "And Then There Were None",
+        "Rate": 4.9,
+        "Price": 17.99,
+        "Description": "One of Agatha Christie's best-selling mystery novels.",
+        "UnitsInStock": 40,
+        "PictureUrl": "And_Then_There_Were_None.jpg",
+        "AuthorId": 3,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Lost Symbol",
+        "Rate": 4.3,
+        "Price": 22.99,
+        "Description": "A mystery thriller by Dan Brown.",
+        "UnitsInStock": 90,
+        "PictureUrl": "The_Lost_Symbol.jpg",
+        "AuthorId": 5,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "Death on the Nile",
+        "Rate": 4.4,
+        "Price": 20.99,
+        "Description": "A famous mystery novel by Agatha Christie set on a cruise on the Nile River.",
+        "UnitsInStock": 60,
+        "PictureUrl": "Death_on_the_Nile.jpg",
+        "AuthorId": 3,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Murder of Roger Ackroyd",
+        "Rate": 4.6,
+        "Price": 19.99,
+        "Description": "A classic mystery novel by Agatha Christie featuring Hercule Poirot.",
+        "UnitsInStock": 50,
+        "PictureUrl": "The_Murder_of_Roger_Ackroyd.jpg",
+        "AuthorId": 3,
+        "Categories": [ ]
+    },
+    {
+        "Id": 0,
+        "Name": "The Girl with the Dragon Tattoo",
+        "Rate": 4.7,
+        "Price": 24.99,
+        "Description": "A gripping mystery thriller by Stieg Larsson.",
+        "UnitsInStock": 80,
+        "PictureUrl": "The_Girl_with_the_Dragon_Tattoo.jpg",
+        "AuthorId": 5,
+        "Categories": []
+    },
+    {
+        "Id": 0,
+        "Name": "The Secret History",
+        "Rate": 4.5,
+        "Price": 21.99,
+        "Description": "A compelling thriller by Donna Tartt set in a college environment.",
+        "UnitsInStock": 90,
+        "PictureUrl": "The_Secret_History.jpg",
+        "AuthorId": 5,
+        "Categories": []
+    }
+]

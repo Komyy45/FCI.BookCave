@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 using FCI.BookCave.Domain.Entities.Products;
 using FCI.BookCave.Persistence.Common.Configurations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FCI.BookCave.Persistence.Data.Configurations
 {
+
+	[DbContext(contextType: typeof(StoreDbContext))]
 	internal class BookConfigurations : BaseAuditableEntityConfigurations<Book, int>
 	{
 		public override void Configure(EntityTypeBuilder<Book> builder)

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using FCI.BookCave.Domain.Contracts.Specification;
 using FCI.BookCave.Domain.Entities.Common;
+using FCI.BookCave.Domain.Entities.Products;
+using FCI.BookCave.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace FCI.BookCave.Persistence.Repositories
@@ -23,7 +25,7 @@ namespace FCI.BookCave.Persistence.Repositories
 			if (specs.Includes.Count > 0) query = specs.Includes.Aggregate(query, (acc,cur) => query.Include(cur));
 
 			if (specs.IsPaginationEnabled)
-				query = query.Take((specs.Skip)..(specs.Skip + specs.Take));
+				query = query.Skip(specs.Skip).Take(specs.Take);
 
 			return query;
 		}

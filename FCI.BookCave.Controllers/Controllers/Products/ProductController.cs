@@ -25,7 +25,7 @@ namespace FCI.BookCave.Controllers.Controllers.Products
 		 => await productService.GetBookByIdAsync(id);
 
 		[HttpGet("Author/{id}")]
-		public async Task<ActionResult<BookDetailsDto>> GetAuthorDetails(int id)
-		 => await productService.GetBookByIdAsync(id);
+		public async Task<ActionResult<AuthorDetailsDto>> GetAuthorDetails(int id)
+		 => await productService.GetAuthorByIdAsync(id);
 	}
 }

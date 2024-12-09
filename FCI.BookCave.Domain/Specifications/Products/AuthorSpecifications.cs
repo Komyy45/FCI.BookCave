@@ -16,5 +16,10 @@ namespace FCI.BookCave.Domain.Specifications.Products
 
 		public AuthorSpecifications()
 		{}
+
+		public override void AddIncludes()
+		{
+			Includes.Add(a => a.Books);
+		}
 	}
 }
