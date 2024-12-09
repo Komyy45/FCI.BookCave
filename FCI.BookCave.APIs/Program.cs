@@ -1,5 +1,6 @@
 using FCI.BookCave.Application;
 using FCI.BookCave.Domain.Entities.Identity;
+using FCI.BookCave.Infrastructure;
 using FCI.BookCave.Persistence;
 using FCI.BookCave.Persistence.Data;
 using FCI.BookCave.Persistence.Identity;
@@ -23,6 +24,7 @@ namespace FCI.BookCave.APIs
 			{
 				options.AddPolicy("Default", config => config.AllowAnyMethod().WithOrigins("http://localhost:3000").AllowAnyHeader().AllowCredentials());
 			});
+			builder.Services.AddInfrastructureServices(builder.Configuration);
 			builder.Services.AddPersistenceServices(builder.Configuration);
 			builder.Services.AddApplicationServices(builder.Configuration);
 			builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options =>
