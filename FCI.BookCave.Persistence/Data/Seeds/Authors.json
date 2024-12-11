@@ -1,0 +1,37 @@
+[
+    {
+        "Id": 0,
+        "Name": "J.K. Rowling",
+        "Bio": "British author, best known for the Harry Potter series.",
+        "PictureUrl": "J_K_Rowling.jpg",
+        "BirthDate": "1965-07-31"
+    },
+    {
+        "Id": 0,
+        "Name": "George R.R. Martin",
+        "Bio": "American novelist and short-story writer, famous for A Song of Ice and Fire.",
+        "PictureUrl": "George_R_R_Martin",
+        "BirthDate": "1948-09-20"
+    },
+    {
+        "Id": 0,
+        "Name": "Agatha Christie",
+        "Bio": "English writer known for her detective novels.",
+        "PictureUrl": "Agatha_Christie.jpg.jpg",
+        "BirthDate": "1890-09-15"
+    },
+    {
+        "Id": 0,
+        "Name": "J.R.R. Tolkien",
+        "Bio": "Author of The Lord of the Rings series.",
+        "PictureUrl": "JRR_Tolkien.jpg",
+        "BirthDate": "1892-01-03"
+    },
+    {
+        "Id": 0,
+        "Name": "Dan Brown",
+        "Bio": "American author best known for The Da Vinci Code.",
+        "PictureUrl": "Dan_brown.jpg",
+        "BirthDate": "1964-06-22"
+    }
+]

@@ -1,0 +1,6 @@
+@FCI.BookCave.API_HostAddress = http://localhost:5262
+
+GET {{FCI.BookCave.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
