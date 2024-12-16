@@ -10,8 +10,7 @@ namespace FCI.BookCave.Persistence.Identity.Configurations
 	{
 		public void Configure(EntityTypeBuilder<ApplicationUser> builder)
 		{
-			builder.HasMany(u => u.Addresses)
-				   .WithMany();
+			builder.OwnsOne(u => u.Address);
 
 			builder.HasMany(u => u.Tokens)
 				   .WithOne()

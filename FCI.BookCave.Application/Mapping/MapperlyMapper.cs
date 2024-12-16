@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FCI.BookCave.Abstractions.Models.basket;
+﻿using FCI.BookCave.Abstractions.Models.basket;
+using FCI.BookCave.Abstractions.Models.Common;
 using FCI.BookCave.Abstractions.Models.Identity;
+using FCI.BookCave.Abstractions.Models.Orders;
 using FCI.BookCave.Abstractions.Models.products;
 using FCI.BookCave.Domain.Entities.basket;
+using FCI.BookCave.Domain.Entities.Common;
 using FCI.BookCave.Domain.Entities.Identity;
+using FCI.BookCave.Domain.Entities.Orders;
 using FCI.BookCave.Domain.Entities.Products;
-using Microsoft.AspNetCore.Builder.Extensions;
 using Riok.Mapperly.Abstractions;
 
 namespace FCI.BookCave.Application.Mapping
@@ -32,10 +30,43 @@ namespace FCI.BookCave.Application.Mapping
 		public partial IEnumerable<BookDto> ToDto(IEnumerable<Book> books);
 		public partial BookDetailsDto ToDto(Book book, string authorName);
 		public partial BookDto ToDto(Book book);
+		public partial AddressDto? ToDto(Address? address);
+		public partial Address? ToEntity(AddressDto? entity);
+
 		public partial CustomerBasketDto ToDto(CustomerBasket book);
 		public partial BookDetailsDto ToDetailsDto(Book book);
 		public partial AuthorDto ToDto(Author author);
 		public partial AuthorDetailsDto ToDetailsDto(Author author, Pagination<BookDto> books);
+
+		[MapperIgnoreSource(nameof(Order.IsDeleted))]
+		public IEnumerable<OrderDto> MapEnumerable(IEnumerable<Order> orders)
+		{
+			return orders.Select(o => MapSingle(o));
+		}
+
+		public partial OrderItemDto ToDto(OrderItem orderItem);
+
+		public partial OrderDto ToDto(Order orderItem);
+
+		public OrderDto MapSingle(Order order)
+		{
+			var mappedOrder = ToDto(order);
+			mappedOrder.Items = MapEnumerable(order.Items);
+			return mappedOrder;
+		}
+
+		public OrderItemDto MapSingle(OrderItem orderItem)
+		{
+			var mappedOrderItem = ToDto(orderItem);
+			mappedOrderItem.PictureUrl = _resolver.Resolve(orderItem.PictureUrl);
+			return mappedOrderItem;
+		}
+
+		public IEnumerable<OrderItemDto> MapEnumerable(IEnumerable<OrderItem> orderItems)
+		{
+			return orderItems.Select(oi => MapSingle(oi));
+		}
+
 		public BookDetailsDto MapSingleDetails(Book book)
 		{
 			var bookDetailsDto = ToDetailsDto(book);

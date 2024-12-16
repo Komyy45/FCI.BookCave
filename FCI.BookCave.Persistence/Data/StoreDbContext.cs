@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using FCI.BookCave.Domain.Entities.Orders;
 using FCI.BookCave.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -23,5 +24,7 @@ namespace FCI.BookCave.Persistence.Data
 		public DbSet<Book> Books { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Author> Authors { get; set; }
+		public DbSet<Order> Orders { get; set; }
+		public DbSet<OrderItem> OrderItems { get; set; }
 	}
 }
