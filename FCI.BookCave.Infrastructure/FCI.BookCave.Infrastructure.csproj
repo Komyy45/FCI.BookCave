@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FCI.BookCave.Abstractions\FCI.BookCave.Abstractions.csproj" />
+    <ProjectReference Include="..\FCI.BookCave.Domain\FCI.BookCave.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
   </ItemGroup>
 
 </Project>

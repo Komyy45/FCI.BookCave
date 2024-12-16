@@ -1,10 +1,11 @@
-﻿using FCI.BookCave.Domain.Entities.Identity;
+﻿using FCI.BookCave.Domain.Contracts.DbInitialzer;
+using FCI.BookCave.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FCI.BookCave.Persistence.Identity
 {
-	public sealed class IdentityDbContextInitializer(IdentityDbContext dbContext, UserManager<ApplicationUser> userManager)
+	public sealed class IdentityDbContextInitializer(IdentityDbContext dbContext, UserManager<ApplicationUser> userManager) : IDbInitialzer
 	{
 		public async Task InitializeAsync()
 		{

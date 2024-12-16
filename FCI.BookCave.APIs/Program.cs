@@ -1,6 +1,8 @@
 using FCI.BookCave.Application;
 using FCI.BookCave.Domain.Entities.Identity;
+using FCI.BookCave.Infrastructure;
 using FCI.BookCave.Persistence;
+using FCI.BookCave.Persistence.Data;
 using FCI.BookCave.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -22,6 +24,7 @@ namespace FCI.BookCave.APIs
 			{
 				options.AddPolicy("Default", config => config.AllowAnyMethod().WithOrigins("http://localhost:3000").AllowAnyHeader().AllowCredentials());
 			});
+			builder.Services.AddInfrastructureServices(builder.Configuration);
 			builder.Services.AddPersistenceServices(builder.Configuration);
 			builder.Services.AddApplicationServices(builder.Configuration);
 			builder.Services.AddIdentity<ApplicationUser,IdentityRole>(options =>
@@ -42,10 +45,13 @@ namespace FCI.BookCave.APIs
 			var scope = app.Services.CreateScope();
 
 			var identityDbInitializer = scope.ServiceProvider.GetRequiredService<IdentityDbContextInitializer>();
+			var storeDbInitializer = scope.ServiceProvider.GetRequiredService<StoreDbContextInitialzer>();
 
 			try
 			{
+				await storeDbInitializer.InitializeAsync();
 				await identityDbInitializer.InitializeAsync();
+				await storeDbInitializer.SeedAsync();
 				await identityDbInitializer.SeedAsync();
 			}
 			catch (Exception ex)
@@ -71,6 +77,9 @@ namespace FCI.BookCave.APIs
 			app.UseCors("Default");
 			app.UseAuthorization();
 
+			app.UseStaticFiles();
+
+			app.UseAuthentication();
 
 			app.MapControllers();
 

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using FCI.BookCave.Domain.Entities.Common;
 using FCI.BookCave.Domain.Entities.Identity;
+using FCI.BookCave.Persistence.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -9,7 +10,7 @@ namespace FCI.BookCave.Persistence.Identity
 {
 	public class IdentityDbContext : IdentityDbContext<ApplicationUser>
 	{
-        public IdentityDbContext(DbContextOptions options) : base(options)
+        public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
         {
         }
 

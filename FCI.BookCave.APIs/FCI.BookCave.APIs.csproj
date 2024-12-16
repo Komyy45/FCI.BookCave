@@ -18,12 +18,14 @@
     <ProjectReference Include="..\FCI.BookCave.Application\FCI.BookCave.Application.csproj" />
     <ProjectReference Include="..\FCI.BookCave.Controllers\FCI.BookCave.Controllers.csproj" />
     <ProjectReference Include="..\FCI.BookCave.Domain\FCI.BookCave.Domain.csproj" />
+    <ProjectReference Include="..\FCI.BookCave.Infrastructure\FCI.BookCave.Infrastructure.csproj" />
     <ProjectReference Include="..\FCI.BookCave.Persistence\FCI.BookCave.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Filters\" />
     <Folder Include="Middlewares\" />
+    <Folder Include="wwwRoot\" />
   </ItemGroup>
 
 </Project>

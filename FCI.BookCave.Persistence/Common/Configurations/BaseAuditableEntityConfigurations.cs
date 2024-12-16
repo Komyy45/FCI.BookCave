@@ -16,6 +16,8 @@ namespace FCI.BookCave.Persistence.Common.Configurations
 	{
 		public override void Configure(EntityTypeBuilder<TEntity> builder)
 		{	
+			base.Configure(builder);
+
 			builder.Property(ba => ba.CreatedBy)
 				   .IsRequired();
 			builder.Property(ba => ba.CreatedOn)
