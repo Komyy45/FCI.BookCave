@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using FCI.BookCave.Abstractions.Contracts;
 using FCI.BookCave.Abstractions.Contracts.basket;
+using FCI.BookCave.Abstractions.Contracts.Orders;
 using FCI.BookCave.Abstractions.Contracts.Products;
 using FCI.BookCave.Abstractions.Models.Common;
 using FCI.BookCave.Application.Mapping;
 using FCI.BookCave.Application.Services.basket;
 using FCI.BookCave.Application.Services.Identity;
+using FCI.BookCave.Application.Services.Orders;
 using FCI.BookCave.Application.Services.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -57,6 +59,8 @@ namespace FCI.BookCave.Application
 			services.AddScoped<IProductService, ProductService>();
 
 			services.AddScoped<IBasketService, BasketService>();
+
+			services.AddScoped<IOrderService, OrderService>();
 
 			return services;
 		}

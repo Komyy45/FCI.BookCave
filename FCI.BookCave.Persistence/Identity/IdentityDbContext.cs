@@ -24,6 +24,5 @@ namespace FCI.BookCave.Persistence.Identity
 		}
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Address> Addresses { get; set; }
     }
 }

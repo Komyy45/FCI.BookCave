@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FCI.BookCave.Domain.Entities.Common
+namespace FCI.BookCave.Abstractions.Models.Common
 {
-	public class Address 
+	public class AddressDto
 	{
-        public string FirstName { get; set; } = null!;
+		public string FirstName { get; set; } = null!;
 
-        public string LastName { get; set; } = null!;
+		public string LastName { get; set; } = null!;
 
 		public string Country { get; set; } = null!;
 
