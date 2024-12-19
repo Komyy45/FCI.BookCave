@@ -1,8 +1,13 @@
-﻿using FCI.BookCave.Domain.Contracts.Basket;
+﻿using FCI.BookCave.Abstractions.Contracts.Payment;
+using FCI.BookCave.Domain.Contracts.Basket;
+using FCI.BookCave.Domain.Options.Stripe;
 using FCI.BookCave.Infrastructure.Basket;
+using FCI.BookCave.Infrastructure.Payment;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
+using Stripe;
 
 namespace FCI.BookCave.Infrastructure
 {
@@ -17,6 +22,27 @@ namespace FCI.BookCave.Infrastructure
 			});
 
 			services.AddScoped<IBasketRepository, BasketRepository>();
+
+
+			services.Configure<StripeSettings>(c =>
+			{
+				c.ApiKey = configuration["StripeSettings:ApiKey"]!;
+			});
+
+			services.AddSingleton(provider =>
+			{
+				var stripeSettings = provider.GetRequiredService<IOptions<StripeSettings>>().Value;
+				StripeConfiguration.ApiKey = stripeSettings.ApiKey;
+				return new StripeClient(stripeSettings.ApiKey);
+			});
+
+			services.AddScoped<ProductService>();
+			services.AddScoped<PriceService>();
+			services.AddScoped<PaymentLinkService>();
+			services.AddScoped<PaymentIntentService>();
+
+
+			services.AddScoped<IPaymentService, PaymentService>();
 
 			return services;
 		}

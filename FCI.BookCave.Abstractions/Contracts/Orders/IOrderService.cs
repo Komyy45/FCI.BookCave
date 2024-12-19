@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using FCI.BookCave.Abstractions.Models.Common;
 using FCI.BookCave.Abstractions.Models.Orders;
+using FCI.BookCave.Abstractions.Models.payment;
 
 namespace FCI.BookCave.Abstractions.Contracts.Orders
 {
 	public interface IOrderService
 	{
-		Task<OrderDto> CreateOrderAsync(string buyerEmail, string basketId);
+		Task<PaymentLinkDto> CreateOrderAsync(string buyerEmail, string basketId);
 
 		Task<IEnumerable<OrderDto>> GetOrdersForUserAsync(string email);
 
