@@ -1,5 +1,4 @@
-﻿
-namespace WebApplication1.Entities.ViewModels.Adminstration
+﻿namespace FCI.BookCave.Dashboard.Models.Adminstration
 {
     public class UserRolesViewModel
     {

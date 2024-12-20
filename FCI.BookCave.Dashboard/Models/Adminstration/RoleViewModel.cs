@@ -1,7 +1,6 @@
-﻿using WebApplication1;
-namespace WebApplication1.Entities.ViewModels.Adminstration
+﻿namespace FCI.BookCave.Dashboard.Models.Adminstration
 {
-	public class RoleViewModel
+    public class RoleViewModel
 	{
 		public string? Id { get; set; }
 		public string RoleName { get; set; }
