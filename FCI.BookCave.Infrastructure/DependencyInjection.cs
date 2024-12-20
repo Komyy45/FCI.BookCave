@@ -1,7 +1,9 @@
-﻿using FCI.BookCave.Abstractions.Contracts.Payment;
+﻿using FCI.BookCave.Abstractions.Contracts.Caching;
+using FCI.BookCave.Abstractions.Contracts.Payment;
 using FCI.BookCave.Domain.Contracts.Basket;
 using FCI.BookCave.Domain.Options.Stripe;
 using FCI.BookCave.Infrastructure.Basket;
+using FCI.BookCave.Infrastructure.Caching;
 using FCI.BookCave.Infrastructure.Payment;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +45,9 @@ namespace FCI.BookCave.Infrastructure
 
 
 			services.AddScoped<IPaymentService, PaymentService>();
+
+
+			services.AddScoped<ICacheService, CacheService>();
 
 			return services;
 		}
