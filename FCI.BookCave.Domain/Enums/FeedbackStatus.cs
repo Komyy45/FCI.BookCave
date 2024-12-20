@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FCI.BookCave.Domain.Entities.Orders
+namespace FCI.BookCave.Domain.Enums
 {
-	public enum OrderStatus : byte
+	public enum FeedbackStatus : byte
 	{
-		Pending,
-		PaymentFailed,
-		PaymentReceived
+		Pending = 1,
+	    Approved
 	}
 }

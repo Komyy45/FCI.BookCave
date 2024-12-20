@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using FCI.BookCave.Abstractions.Contracts;
 using FCI.BookCave.Abstractions.Contracts.basket;
+using FCI.BookCave.Abstractions.Contracts.Feedbacks;
 using FCI.BookCave.Abstractions.Contracts.Orders;
 using FCI.BookCave.Abstractions.Contracts.Products;
 using FCI.BookCave.Abstractions.Models.Common;
 using FCI.BookCave.Application.Mapping;
 using FCI.BookCave.Application.Services.basket;
+using FCI.BookCave.Application.Services.Feedbacks;
 using FCI.BookCave.Application.Services.Identity;
 using FCI.BookCave.Application.Services.Orders;
 using FCI.BookCave.Application.Services.Products;
@@ -48,19 +50,29 @@ namespace FCI.BookCave.Application
 			}
 			);
 
-			#endregion
-
 			services.AddScoped<IAuthService, AuthService>();
 			services.Configure<JwtSettings>(configurations.GetSection("JwtSettings"));
 
+			#endregion
+
+			#region Mapper
+
 			services.AddScoped<ImageUrlResolver>();
-			services.AddScoped<MapperlyMapper>();
+			services.AddScoped<MapperlyMapper>(); 
+
+			#endregion
+
+			#region Application Services
 
 			services.AddScoped<IProductService, ProductService>();
 
 			services.AddScoped<IBasketService, BasketService>();
 
 			services.AddScoped<IOrderService, OrderService>();
+
+			services.AddScoped<IFeedbackService, FeedbackService>(); 
+
+			#endregion
 
 			return services;
 		}

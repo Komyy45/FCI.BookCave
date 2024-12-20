@@ -3,6 +3,7 @@ using FCI.BookCave.Abstractions.Models.Orders;
 using FCI.BookCave.Abstractions.Models.payment;
 using FCI.BookCave.Domain.Contracts.UnitOfWork;
 using FCI.BookCave.Domain.Entities.Orders;
+using FCI.BookCave.Domain.Enums;
 using FCI.BookCave.Domain.Exception;
 using FCI.BookCave.Domain.Options.Stripe;
 using Microsoft.Extensions.Logging;

@@ -1,10 +1,12 @@
 ﻿using FCI.BookCave.Abstractions.Models.basket;
 using FCI.BookCave.Abstractions.Models.Common;
+using FCI.BookCave.Abstractions.Models.Feedbacks;
 using FCI.BookCave.Abstractions.Models.Identity;
 using FCI.BookCave.Abstractions.Models.Orders;
 using FCI.BookCave.Abstractions.Models.products;
 using FCI.BookCave.Domain.Entities.basket;
 using FCI.BookCave.Domain.Entities.Common;
+using FCI.BookCave.Domain.Entities.Feedbacks;
 using FCI.BookCave.Domain.Entities.Identity;
 using FCI.BookCave.Domain.Entities.Orders;
 using FCI.BookCave.Domain.Entities.Products;
@@ -27,6 +29,8 @@ namespace FCI.BookCave.Application.Mapping
 		public partial CustomerBasket ToEntity(CustomerBasketDto entity);
 		public partial AuthorDetailsDto ToDto(Author author, Pagination<BookDto> books);
 		public partial IEnumerable<AuthorDto> ToDto(IEnumerable<Author> authors);
+		public partial IEnumerable<FeedbackCategoryDto> ToDto(IEnumerable<FeedbackCategory> categories);
+		public partial Feedback ToEntity(FeedbackDto categories);
 		public partial IEnumerable<BookDto> ToDto(IEnumerable<Book> books);
 		public partial BookDetailsDto ToDto(Book book, string authorName);
 		public partial BookDto ToDto(Book book);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FCI.BookCave.Domain.Entities.Orders;
+using FCI.BookCave.Domain.Enums;
 using FCI.BookCave.Persistence.Common.Configurations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
