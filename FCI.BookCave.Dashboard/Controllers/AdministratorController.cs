@@ -62,5 +62,14 @@ namespace FCI.BookCave.Dashboard.Controllers
             }
             return RedirectToAction("GetAllUsers", "Administrator");
         }
+
+        public async Task<ActionResult> DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user == null)
+                return RedirectToAction("GetAllUsers");
+            _userManager.DeleteAsync(user);
+            return View("UsersList");
+        }
     }
 }

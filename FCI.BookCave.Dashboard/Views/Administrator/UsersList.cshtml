@@ -35,8 +35,8 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @*<a asp-action="ManageRoles" asp-route-userId="@item.Id" class="btn btn-primary">Manage Roles</a>*@
                     <a asp-action="ChangePassword"  class="btn btn-warning">Change Password</a>
+                    <a asp-action="DeleteUser" asp-route-userId="@item.Id" class="btn btn-danger">Delete User</a>
                 </td>
             </tr>
         }
