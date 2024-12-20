@@ -21,7 +21,11 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FCI.BookCave.Application.Services.Identity
 {
-	internal class AuthService(IIdentityUnitOfWork identityUnitOfWork, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings, MapperlyMapper _mapper) : IAuthService
+	internal class AuthService(IIdentityUnitOfWork identityUnitOfWork,
+		UserManager<ApplicationUser> userManager, 
+		SignInManager<ApplicationUser> signInManager,
+		IOptions<JwtSettings> jwtSettings, 
+		MapperlyMapper _mapper) : IAuthService
 	{
 		private JwtSettings _jwtSettings = jwtSettings.Value;
 
@@ -171,6 +175,38 @@ namespace FCI.BookCave.Application.Services.Identity
 				);
 
 			return new JwtSecurityTokenHandler().WriteToken(jsonWebToken);
+		}
+
+		public async Task<UserDetailsDto> GetCurrentLoggedInUser(string email)
+		{
+			var user = await userManager.FindByEmailAsync(email);
+
+			if (user is null) throw new NotFoundException($"The user with Email: {email} doesn't exists!");
+
+			return new UserDetailsDto()
+			{
+				UserName = user.UserName!,
+				DisplayName = user.DisplayName,
+				PhoneNumber = user.PhoneNumber!,
+				Email = user.Email!,
+				Address = _mapper.ToDto(user.Address)!
+			};
+		}
+
+		public async Task<UserDetailsDto> UpdateUserPersonalInformation(string email, UserDetailsDto userDetailsDto)
+		{
+			var user = await userManager.FindByEmailAsync(email);
+
+			if (user is null) throw new NotFoundException($"The user with Email: {email} doesn't exists!");
+
+			user.PhoneNumber = userDetailsDto.PhoneNumber;
+			user.Address = _mapper.ToEntity(userDetailsDto.Address);
+			user.DisplayName = userDetailsDto.DisplayName;
+			user.UserName = userDetailsDto.UserName;
+
+			await userManager.UpdateAsync(user);
+
+			return userDetailsDto;
 		}
 	}
 }

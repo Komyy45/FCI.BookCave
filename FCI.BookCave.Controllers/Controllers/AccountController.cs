@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Data;
+using System.Security.Claims;
 using FCI.BookCave.Abstractions.Contracts;
 using FCI.BookCave.Abstractions.Models.Identity;
 using FCI.BookCave.Controllers.Controllers.Common;
@@ -24,6 +25,20 @@ namespace FCI.BookCave.Controllers.Controllers
 			var result = await authService.Register(model);
 			SetRefreshToken(result.RefreshToken);
 			return Ok(result);
+		}
+
+		[Authorize(AuthenticationSchemes = "Bearer")]
+		[HttpGet]
+		public async Task<ActionResult<UserDetailsDto>> GetCurrentLoggedInUser()
+		{
+			return Ok(await authService.GetCurrentLoggedInUser(User.FindFirst(ClaimTypes.Email)!.Value));
+		}
+
+		[Authorize(AuthenticationSchemes = "Bearer")]
+		[HttpPut]
+		public async Task<ActionResult<UserDetailsDto>> UpdateCurrentUserData(UserDetailsDto userDetails)
+		{
+			return Ok(await authService.UpdateUserPersonalInformation(User.FindFirst(ClaimTypes.Email)!.Value ,userDetails));
 		}
 
 		private void SetRefreshToken(RefreshTokenDto refreshToken)
