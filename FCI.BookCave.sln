@@ -31,7 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{0F8B3FA3-EBC6-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{27FC9E88-E50F-440F-B966-C188AC5DE497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.Dashboard", "FCI.BookCave.Dashboard\FCI.BookCave.Dashboard.csproj", "{1D321859-1968-4BFF-850B-F463894C4D7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.Dashboard", "FCI.BookCave.Dashboard\FCI.BookCave.Dashboard.csproj", "{1D321859-1968-4BFF-850B-F463894C4D7B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C} = {76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
