@@ -15,6 +15,7 @@ using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using FCI.BookCave.Application.Services.Identity;
+using FCI.BookCave.Dashboard.Email;
 
 namespace FCI.BookCave.Dashboard
 {
@@ -40,6 +41,9 @@ namespace FCI.BookCave.Dashboard
             builder.Services.AddScoped(typeof(DbContext),typeof(StoreDbContext));
             builder.Services.AddScoped<IFileUpload, FileUpload>();
             builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+
+            builder.Services.AddTransient<IEmailService, EmailService>();
+
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
