@@ -1,0 +1,51 @@
+﻿@model IEnumerable<UserViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Users List</h1>
+
+<div class="col-md-12">
+    <div class="float-end btn btn-success">
+        <a asp-action="Register" class="text-light" style="text-decoration:none">Add User</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th> *@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                @* <td>
+                    @string.Join(" , ", item.Roles)
+                </td> *@
+                <td>
+                    @* <a asp-action="ManageRoles" asp-route-userId="@item.Id" class="btn btn-primary">Manage Roles</a> *@
+                    <a asp-action="ChangePassword"  class="btn btn-warning">Change Password</a>
+                    <a asp-action="DeleteUser" asp-route-userId="@item.Id" class="btn btn-danger">Delete User</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

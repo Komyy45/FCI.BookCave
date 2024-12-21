@@ -13,27 +13,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4FEE30AB-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{3268CBDD-E129-4DF9-A08F-B9538C307CDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.APIs", "FCI.BookCave.APIs\FCI.BookCave.APIs.csproj", "{8003FAFE-8C95-4569-9105-D226E9370A4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.APIs", "FCI.BookCave.APIs\FCI.BookCave.APIs.csproj", "{8003FAFE-8C95-4569-9105-D226E9370A4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.Controllers", "FCI.BookCave.Controllers\FCI.BookCave.Controllers.csproj", "{E705B692-6BED-4B4E-9222-4A52DB3E57E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.Controllers", "FCI.BookCave.Controllers\FCI.BookCave.Controllers.csproj", "{E705B692-6BED-4B4E-9222-4A52DB3E57E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.Domain", "FCI.BookCave.Domain\FCI.BookCave.Domain.csproj", "{2F3291FD-9444-432C-8D4C-B658C2B59599}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.Domain", "FCI.BookCave.Domain\FCI.BookCave.Domain.csproj", "{2F3291FD-9444-432C-8D4C-B658C2B59599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.Application", "FCI.BookCave.Application\FCI.BookCave.Application.csproj", "{2C4A3B70-FD02-4CE8-92E9-3C3EC3A2712E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.Application", "FCI.BookCave.Application\FCI.BookCave.Application.csproj", "{2C4A3B70-FD02-4CE8-92E9-3C3EC3A2712E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.Abstractions", "FCI.BookCave.Abstractions\FCI.BookCave.Abstractions.csproj", "{2D98B65F-C651-4858-8DA8-AD9CB3A229F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.Abstractions", "FCI.BookCave.Abstractions\FCI.BookCave.Abstractions.csproj", "{2D98B65F-C651-4858-8DA8-AD9CB3A229F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.Persistence", "FCI.BookCave.Persistence\FCI.BookCave.Persistence.csproj", "{A24F2661-15FB-499B-9949-63DB496E17C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.Persistence", "FCI.BookCave.Persistence\FCI.BookCave.Persistence.csproj", "{A24F2661-15FB-499B-9949-63DB496E17C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.Infrastructure", "FCI.BookCave.Infrastructure\FCI.BookCave.Infrastructure.csproj", "{76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.Infrastructure", "FCI.BookCave.Infrastructure\FCI.BookCave.Infrastructure.csproj", "{76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{0F8B3FA3-EBC6-4576-871A-D6748D33083A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCI.BookCave.Dashboard", "FCI.BookCave.Dashboard\FCI.BookCave.Dashboard.csproj", "{75490EC4-B703-403E-B158-761A1F2BF6AB}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dashboard", "Dashboard", "{F11A321C-F06D-4AB0-886B-610202D22A1D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{27FC9E88-E50F-440F-B966-C188AC5DE497}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FCI.BookCave.Dashboard", "FCI.BookCave.Dashboard\FCI.BookCave.Dashboard.csproj", "{1D321859-1968-4BFF-850B-F463894C4D7B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C} = {76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,10 +70,10 @@ Global
 		{76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75490EC4-B703-403E-B158-761A1F2BF6AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75490EC4-B703-403E-B158-761A1F2BF6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75490EC4-B703-403E-B158-761A1F2BF6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75490EC4-B703-403E-B158-761A1F2BF6AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D321859-1968-4BFF-850B-F463894C4D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D321859-1968-4BFF-850B-F463894C4D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D321859-1968-4BFF-850B-F463894C4D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D321859-1968-4BFF-850B-F463894C4D7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,9 +90,8 @@ Global
 		{A24F2661-15FB-499B-9949-63DB496E17C5} = {3268CBDD-E129-4DF9-A08F-B9538C307CDF}
 		{76DEC5EA-AB29-4EAD-924F-8F8AEA290D1C} = {3268CBDD-E129-4DF9-A08F-B9538C307CDF}
 		{0F8B3FA3-EBC6-4576-871A-D6748D33083A} = {2722E0B6-F601-4A7C-B5A4-B31A194C701D}
-		{75490EC4-B703-403E-B158-761A1F2BF6AB} = {F11A321C-F06D-4AB0-886B-610202D22A1D}
-		{F11A321C-F06D-4AB0-886B-610202D22A1D} = {0F8B3FA3-EBC6-4576-871A-D6748D33083A}
 		{27FC9E88-E50F-440F-B966-C188AC5DE497} = {0F8B3FA3-EBC6-4576-871A-D6748D33083A}
+		{1D321859-1968-4BFF-850B-F463894C4D7B} = {0F8B3FA3-EBC6-4576-871A-D6748D33083A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CE24A5E-69E1-412C-BEBF-B1C717A28233}
