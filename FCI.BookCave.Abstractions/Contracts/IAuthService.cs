@@ -13,6 +13,10 @@ namespace FCI.BookCave.Abstractions.Contracts
 
 		Task<AuthDto> Register(RegisterDto model);
 
+		Task<UserDetailsDto> GetCurrentLoggedInUser(string email);
+
+		Task<UserDetailsDto> UpdateUserPersonalInformation(string email, UserDetailsDto userDetailsDto);
+
 		Task<AuthDto> RefreshTokenAsync(string token);
 
 		Task<bool> RevokeToken(string token);

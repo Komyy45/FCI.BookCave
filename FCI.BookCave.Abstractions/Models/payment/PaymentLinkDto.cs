@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FCI.BookCave.Domain.Entities.Orders
+namespace FCI.BookCave.Abstractions.Models.payment
 {
-	public enum OrderStatus : byte
+	public class PaymentLinkDto
 	{
-		Pending,
-		PaymentFailed,
-		PaymentReceived
+		public string Url { get; set; } = null!;
 	}
 }

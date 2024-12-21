@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using FCI.BookCave.Domain.Entities.Common;
+using FCI.BookCave.Domain.Entities.Feedbacks;
 using FCI.BookCave.Domain.Entities.Identity;
 using FCI.BookCave.Persistence.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -24,5 +25,9 @@ namespace FCI.BookCave.Persistence.Identity
 		}
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-    }
+
+		public DbSet<Feedback> Feedbacks { get; set; }
+
+		public DbSet<FeedbackCategory> FeedbackCategories { get; set; }
+	}
 }

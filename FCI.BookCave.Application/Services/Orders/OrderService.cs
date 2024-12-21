@@ -1,6 +1,8 @@
 ﻿using FCI.BookCave.Abstractions.Contracts.Orders;
+using FCI.BookCave.Abstractions.Contracts.Payment;
 using FCI.BookCave.Abstractions.Models.Common;
 using FCI.BookCave.Abstractions.Models.Orders;
+using FCI.BookCave.Abstractions.Models.payment;
 using FCI.BookCave.Application.Mapping;
 using FCI.BookCave.Domain.Contracts.Basket;
 using FCI.BookCave.Domain.Contracts.UnitOfWork;
@@ -13,9 +15,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FCI.BookCave.Application.Services.Orders
 {
-	internal class OrderService(IBasketRepository basketRepository,UserManager<ApplicationUser> userManager, IApplicationUnitOfWork unitOfWork, MapperlyMapper mapper) : IOrderService
+	internal class OrderService(IBasketRepository basketRepository,
+		UserManager<ApplicationUser> userManager, 
+		IApplicationUnitOfWork unitOfWork, 
+		MapperlyMapper mapper,
+		IPaymentService paymentService) : IOrderService
 	{
-		public async Task<OrderDto> CreateOrderAsync(string buyerEmail, string basketId)
+		public async Task<PaymentLinkDto> CreateOrderAsync(string buyerEmail, string basketId)
 		{
 			var basket = await basketRepository.GetAsync(basketId);
 
@@ -57,7 +63,7 @@ namespace FCI.BookCave.Application.Services.Orders
 
 		 	await unitOfWork.CompleteAsync();
 
-			return mapper.MapSingle(order);
+			return await paymentService.CreatePaymentLink(mapper.MapSingle(order));
 		}
 
 		public async Task<OrderDto> GetOrderByIdAsync(int id)

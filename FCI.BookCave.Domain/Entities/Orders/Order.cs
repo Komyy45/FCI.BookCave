@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FCI.BookCave.Domain.Entities.Common;
+using FCI.BookCave.Domain.Enums;
 
 namespace FCI.BookCave.Domain.Entities.Orders
 {

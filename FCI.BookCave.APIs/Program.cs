@@ -1,3 +1,4 @@
+using FCI.BookCave.APIs.Middlewares;
 using FCI.BookCave.Application;
 using FCI.BookCave.Domain.Entities.Identity;
 using FCI.BookCave.Infrastructure;
@@ -93,6 +94,8 @@ namespace FCI.BookCave.APIs
 
 
 			#endregion
+
+			app.UseMiddleware<CustomExceptionHandlingMiddleware>();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
