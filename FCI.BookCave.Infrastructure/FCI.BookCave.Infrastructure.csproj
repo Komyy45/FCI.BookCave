@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FCI.BookCave.Abstractions\FCI.BookCave.Abstractions.csproj" />
-    <ProjectReference Include="..\FCI.BookCave.Domain\FCI.BookCave.Domain.csproj" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
+    <PackageReference Include="Stripe.net" Version="47.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
-    <PackageReference Include="Stripe.net" Version="47.2.0" />
+    <ProjectReference Include="..\FCI.BookCave.Abstractions\FCI.BookCave.Abstractions.csproj" />
+    <ProjectReference Include="..\FCI.BookCave.Domain\FCI.BookCave.Domain.csproj" />
   </ItemGroup>
 
 </Project>
