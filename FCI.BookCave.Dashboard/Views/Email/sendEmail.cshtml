@@ -1,0 +1,43 @@
+﻿@using FCI.BookCave.Dashboard.Email
+@model EmailViewModel
+
+@{
+    ViewData["Title"] = "Send Email";
+}
+
+<h1>Sending Email</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="sendEmail">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="subject" class="control-label"></label>
+                <input asp-for="subject" class="form-control" />
+                <span asp-validation-for="subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="content" class="control-label"></label>
+                <input asp-for="content" class="form-control" />
+                <span asp-validation-for="content" class="text-danger"></span>
+            </div>
+            <div class="form-group float-end mt-3">
+                <input type="submit" value="Send" class="btn btn-primary" />
+                <a asp-action="Index" asp-controller="Home" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
