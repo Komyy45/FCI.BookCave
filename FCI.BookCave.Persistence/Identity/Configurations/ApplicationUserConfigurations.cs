@@ -17,8 +17,7 @@ namespace FCI.BookCave.Persistence.Identity.Configurations
 				   .HasForeignKey(u => u.UserId);
 
 			builder.Property(u => u.DisplayName)
-				   .HasMaxLength(50)
-				   .IsRequired();
+				   .HasMaxLength(50);
 		}
 	}
 }

@@ -14,6 +14,7 @@ namespace FCI.BookCave.Controllers.Controllers.Feedbacks
 		[HttpPost]
 		public async Task<ActionResult> SubmitFeedback(FeedbackDto feedback)
 		{
+			feedback.UserId = User.FindFirst(ClaimTypes.PrimarySid)!.Value;
 			var email = User.FindFirst(ClaimTypes.Email)!.Value;
 			await feedbackService.SubmitFeedback(email, feedback);
 			return Ok();

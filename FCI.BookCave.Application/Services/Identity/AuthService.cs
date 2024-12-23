@@ -77,9 +77,10 @@ namespace FCI.BookCave.Application.Services.Identity
 
 
 			var refreshToken = await GenerateRefereshToken(applicationUser);
+			var jwtToken = await GenerateJwtToken(applicationUser);
 
-			return _mapper.ToDto(applicationUser, await GenerateJwtToken(applicationUser), 
-				DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes), 
+			return _mapper.ToDto(applicationUser, jwtToken,
+				DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
 				new RefreshTokenDto(refreshToken.Token, refreshToken.ExpiresOn));
 		}
 
@@ -158,8 +159,7 @@ namespace FCI.BookCave.Application.Services.Identity
 			var claims = new List<Claim>()
 			{
 				new Claim(ClaimTypes.PrimarySid, applicationUser.Id),
-				new Claim(ClaimTypes.Email, applicationUser.Email!),
-				new Claim(ClaimTypes.GivenName, applicationUser.DisplayName)
+				new Claim(ClaimTypes.Email, applicationUser.Email!)
 			}.Union(userClaims)
 			 .Union(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

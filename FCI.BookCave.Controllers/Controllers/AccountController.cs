@@ -46,15 +46,15 @@ namespace FCI.BookCave.Controllers.Controllers
 			CookieOptions options = new CookieOptions()
 			{
 				HttpOnly = true,
-				Expires = refreshToken.ExpiresOn
+				Expires = refreshToken.ExpiresOn,
 			};
 
-			Response.Cookies.Append("refresh-token", refreshToken.Token);
+			Response.Cookies.Append("refresh-token", refreshToken.Token, options);
 		}
 
 
 		[HttpPost("Refresh-Token")]
-		public async Task<ActionResult<AuthDto>> RefereshToken(string token)
+		public async Task<ActionResult<AuthDto>> RefereshToken()
 		{
 			var result = await authService.RefreshTokenAsync(Request.Cookies["refresh-token"]);
 
@@ -64,9 +64,9 @@ namespace FCI.BookCave.Controllers.Controllers
 		}
 
 		[HttpPost("revoke-token")] 
-		public async Task<ActionResult<bool>> RevokeToken(string token)
+		public async Task<ActionResult<bool>> RevokeToken()
 		{
-			var result = await authService.RevokeToken(token);
+			var result = await authService.RevokeToken(Request.Cookies["refresh-token"]);
 			return Ok(result);
 		}
 	}

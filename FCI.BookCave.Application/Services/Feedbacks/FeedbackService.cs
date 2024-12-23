@@ -24,7 +24,7 @@ namespace FCI.BookCave.Application.Services.Feedbacks
 		{
 			var feedbackRepository = unitOfWork.GetRepository<Feedback, int>();
 
-			var user = userManager.FindByEmailAsync(email);
+			var user = await userManager.FindByEmailAsync(email);
 
 			if (user == null) throw new NotFoundException($"The user with email:{email} doesn't exists");
 

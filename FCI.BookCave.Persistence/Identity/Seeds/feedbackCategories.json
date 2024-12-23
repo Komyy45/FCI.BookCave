@@ -1,0 +1,52 @@
+[
+    {
+        "id": 0,
+        "name": "Bug Report",
+        "description": "Report an issue or malfunction in the system."
+    },
+    {
+        "id": 0,
+        "name": "Feature Request",
+        "description": "Suggest a new feature to improve the system."
+    },
+    {
+        "id": 0,
+        "name": "General Feedback",
+        "description": "Provide overall feedback about your experience."
+    },
+    {
+        "id": 0,
+        "name": "Compliment",
+        "description": "Share positive feedback about the system or team."
+    },
+    {
+        "id": 0,
+        "name": "Complaint",
+        "description": "Express dissatisfaction or report a negative experience."
+    },
+    {
+        "id": 0,
+        "name": "Usability Issue",
+        "description": "Highlight difficulties in navigating or using the system."
+    },
+    {
+        "id": 0,
+        "name": "Performance Issue",
+        "description": "Report problems with system speed or responsiveness."
+    },
+    {
+        "id": 0,
+        "name": "Accessibility Feedback",
+        "description": "Provide suggestions to improve accessibility for all users."
+    },
+    {
+        "id": 0,
+        "name": "Content Feedback",
+        "description": "Share feedback on the textual or visual content."
+    },
+    {
+        "id": 0,
+        "name": "Other",
+        "description": "Provide feedback that doesn't fit into other categories."
+    }
+]

@@ -10,7 +10,7 @@ namespace FCI.BookCave.Domain.Entities.Identity
 {
 	public class ApplicationUser : IdentityUser
 	{
-        public string DisplayName { get; set; } = null!;
+        public string? DisplayName { get; set; } = null!;
         public Address? Address { get; set; } = null!;
         public virtual ICollection<RefreshToken> Tokens { get; set; } = new HashSet<RefreshToken>();
     }

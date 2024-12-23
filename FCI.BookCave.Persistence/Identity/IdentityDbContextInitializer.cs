@@ -1,5 +1,8 @@
-﻿using FCI.BookCave.Domain.Contracts.DbInitialzer;
+﻿using System.Text.Json;
+using FCI.BookCave.Domain.Contracts.DbInitialzer;
+using FCI.BookCave.Domain.Entities.Feedbacks;
 using FCI.BookCave.Domain.Entities.Identity;
+using FCI.BookCave.Domain.Entities.Products;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +33,20 @@ namespace FCI.BookCave.Persistence.Identity
 
 				var result = await userManager.CreateAsync(applicationUser, "P@ssw0rd");
 			}
+			if(!dbContext.FeedbackCategories.Any())
+			{
+				var data = await File.ReadAllTextAsync("../FCI.BookCave.Persistence/Identity/Seeds/feedbackCategories.json");
+				var feedbackCategories = JsonSerializer.Deserialize<List<FeedbackCategory>>(data, new JsonSerializerOptions
+				{
+					PropertyNameCaseInsensitive = true
+				});
+				if (feedbackCategories?.Count > 0)
+				{
+					await dbContext.FeedbackCategories.AddRangeAsync(feedbackCategories);
+				}
+			}
+
+			await dbContext.SaveChangesAsync();
 		}
 	}
 }

@@ -8,7 +8,7 @@ namespace FCI.BookCave.Abstractions.Models.Feedbacks
 {
 	public class FeedbackDto
 	{
-		public int UserId { get; set; }
+		public string UserId { get; set; } = null!;
 		public string FeedbackText { get; set; } = null!;
 		public int FeedbackCategoryId { get; set; }
 	}
