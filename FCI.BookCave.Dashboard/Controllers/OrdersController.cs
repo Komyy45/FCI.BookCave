@@ -43,27 +43,27 @@ namespace FCI.BookCave.Dashboard.Controllers
             return View(order);
         }
 
-        //// GET: Orders/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        // GET: Orders/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //// POST: Orders/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("BuyerEmail,Status,Date,Total,Id,IsDeleted")] Order order)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(order);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(order);
-        //}
+        // POST: Orders/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("BuyerEmail,Status,Date,Total,Id,IsDeleted")] Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(order);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(order);
+        }
 
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
