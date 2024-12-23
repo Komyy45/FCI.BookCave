@@ -17,6 +17,7 @@ namespace FCI.BookCave.Dashboard.Models.Adminstration
 		[EmailAddress]
 		public string Email { get; set; }
 		[DataType(DataType.Password)]
+		[MinLength(8, ErrorMessage = "Password must be 8 characters or more")]
 		public string Password { get; set; }
         [DataType(DataType.Password)]
 		[Compare("Password")]

@@ -74,13 +74,50 @@ namespace FCI.BookCave.Dashboard.Controllers
             return RedirectToAction("GetAllUsers", "Administrator");
         }
 
+        public async Task<IActionResult> ManageRoles(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return RedirectToAction("GetAllUsers");
+            }
+            var roles = await _roleManager.Roles.ToListAsync();
+
+            var model = new UserRolesViewModel()
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                UserRoles = roles.Select(r => new RolesCheckedViewModel()
+                {
+                    Role = r.Name,
+                    isSelected = _userManager.IsInRoleAsync(user, r.Name).Result
+                }).ToList()
+            };
+            return View(model);
+        }
+
+        public async Task<IActionResult> UpdateRoles(UserRolesViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return RedirectToAction("GetAllUsers");
+            }
+            var userroles = await _userManager.GetRolesAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, userroles);
+            await _userManager.AddToRolesAsync(user, model.UserRoles.Where(r => r.isSelected).Select(n => n.Role).ToList());
+            return RedirectToAction("GetAllUsers");
+        }
+
+
         public async Task<ActionResult> DeleteUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if(user == null)
                 return RedirectToAction("GetAllUsers");
             await _userManager.DeleteAsync(user);
-            return View("UsersList");
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 
@@ -129,6 +166,16 @@ namespace FCI.BookCave.Dashboard.Controllers
             }
             return View(item);
         }
+
+        public async Task<ActionResult> DeleteRole(string roleId)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId);
+            if (role == null)
+                return NotFound();
+            await _roleManager.DeleteAsync(role);
+            return RedirectToAction("Index","Home");
+        }
+
         #endregion
 
     }

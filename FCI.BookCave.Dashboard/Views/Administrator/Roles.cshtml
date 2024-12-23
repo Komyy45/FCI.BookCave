@@ -33,9 +33,10 @@
                 @Html.DisplayFor(modelItem => item.RoleName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                 @if (item.RoleName != "AdminsRole" && item.RoleName != "UsersRole")
+                 {
+                   <a asp-action="DeleteRole" asp-route-roleId="@item.Id" class="btn btn-danger">Delete</a>
+                 }
             </td>
         </tr>
 }
