@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using FCI.BookCave.Application.Services.Identity;
 using FCI.BookCave.Dashboard.Email;
+using FCI.BookCave.Dashboard.Models.Adminstration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FCI.BookCave.Dashboard
 {
@@ -52,7 +54,6 @@ namespace FCI.BookCave.Dashboard
                 options.Password.RequireUppercase = true;
                 options.Password.RequireLowercase = true;
                 options.SignIn.RequireConfirmedEmail = true;
-
 
             }).AddEntityFrameworkStores<IdentityDbContext>();
 

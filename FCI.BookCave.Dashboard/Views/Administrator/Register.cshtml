@@ -1,9 +1,9 @@
-﻿@model RegisterViewModel
+﻿@using FCI.BookCave.Dashboard.Models.Adminstration;
+@model RegisterViewModel
 
 @{
     ViewData["Title"] = "Register";
     Layout = "_AccountLayout";
-
 }
 
 <h1>Register</h1>
@@ -22,6 +22,11 @@
                 <input asp-for="Email" class="form-control" placeholder="User Name" />
                 <label asp-for="Email" class="control-label"></label>
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-1">
+                <input asp-for="phoneNumber" class="form-control" placeholder="Phone Number" />
+                <label asp-for="phoneNumber" class="control-label"></label>
+                <span asp-validation-for="phoneNumber" class="text-danger"></span>
             </div>
             <div class="form-floating mt-1">
                 <input asp-for="Password" class="form-control" placeholder="User Name" />

@@ -41,16 +41,21 @@ namespace FCI.BookCave.Dashboard.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel user)
         {
             if (ModelState.IsValid)
             {
                 var newuser = new ApplicationUser
                 {
-                    UserName = model.UserName,
-                    Email = model.Email,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    PhoneNumber = user.phoneNumber,
+                    EmailConfirmed = true,
+                    DisplayName = user.UserName.ToUpper(),
                 };
-                var result = await _userManager.CreateAsync(newuser, model.Password);
+
+                var result = await _userManager.CreateAsync(newuser, user.Password);
+
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(newuser, "UsersRole");
@@ -65,6 +70,7 @@ namespace FCI.BookCave.Dashboard.Controllers
                     }
                 }
             }
+
             return RedirectToAction("GetAllUsers", "Administrator");
         }
 
