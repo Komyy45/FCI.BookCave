@@ -56,6 +56,11 @@ namespace FCI.BookCave.Dashboard
                 options.SignIn.RequireConfirmedEmail = true;
 
             }).AddEntityFrameworkStores<IdentityDbContext>();
+            builder.Services.ConfigureApplicationCookie(opt =>
+            {
+                opt.AccessDeniedPath = new PathString("/account/AccessDeniedCustom");
+                opt.LoginPath = new PathString("/account/UnAuthenticated");
+            });
 
             var app = builder.Build();
 
